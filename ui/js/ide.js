@@ -1,9 +1,14 @@
 let editor;
-
+let editor2;
 window.onload = function() {
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/c_cpp");
+    editor2 = ace.edit("editor2");
+    editor2.setTheme("ace/theme/monokai");
+    editor2.session.setMode("ace/mode/c_cpp");
+
+
 }
 
 function changeLanguage() {
@@ -30,6 +35,7 @@ function executeCode() {
         },
 
         success: function(response) {
+            console.log(response);
             $(".output").text(response)
         }
     })

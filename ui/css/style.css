@@ -4,8 +4,16 @@
     right: 0;
     bottom: 0;
     left: 0;
-    display: none;
+    width: 50%;
   }
+#editor2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 50%;
+  }
+
   
   .controls {
     position: absolute;

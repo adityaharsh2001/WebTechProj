@@ -11,11 +11,11 @@ header("Access-Control-Allow-Methods: *");
     fclose($programFile);
 
     if($language == "php") {
-        $output = shell_exec("C:\wamp64\bin\php\php5.6.40\php.exe $filePath 2>&1");
+        $output = shell_exec("php " . $filePath . " 2>&1");
         echo $output;
     }
     if($language == "python") {
-        $output = shell_exec("C:\Users\KOUSIK\AppData\Local\Programs\Python\Python39\python.exe $filePath 2>&1");
+        $output = shell_exec("python " . $filePath . " 2>&1");
         echo $output;
     }
     if($language == "node") {
@@ -25,13 +25,23 @@ header("Access-Control-Allow-Methods: *");
     }
     if($language == "c") {
         $outputExe = $random . ".exe";
-        shell_exec("gcc $filePath -o $outputExe");
+        shell_exec("gcc $filePath -o $outputExe 2>&1");
         $output = shell_exec(__DIR__ . "/$outputExe");
         echo $output;
     }
-    if($language == "cpp") {
+    if($language == "c_cpp") {
+        rename($filePath, $filePath.".cpp");
         $outputExe = $random . ".exe";
-        shell_exec("g++ $filePath -o $outputExe");
-        $output = shell_exec(__DIR__ . "/$outputExe");
-        echo $output;
+        try {
+            $data = shell_exec("g++ $filePath.cpp -o $outputExe 2>&1");
+            if($data){
+                echo $data;
+            } else {
+                $output = shell_exec(__DIR__ . "/$outputExe");
+                echo $output;
+            };
+        } catch (Exception $e) {
+            console_log("Error: " . $e->getMessage());
+            echo $e;
+        }
     }
